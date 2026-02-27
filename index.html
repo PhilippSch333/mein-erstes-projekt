@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein erstes Projekt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Mein Projekt</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>Willkommen auf meiner Webseite</h1>
+            <p>Das ist mein erstes Projekt mit HTML und CSS.</p>
+            <a href="#about" class="btn">Mehr erfahren</a>
+        </section>
+
+        <section id="about" class="about">
+            <h2>Über mich</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Design</h3>
+                    <p>Sauberes und modernes Design mit CSS.</p>
+                </div>
+                <div class="card">
+                    <h3>Code</h3>
+                    <p>Strukturierter HTML-Code als Grundlage.</p>
+                </div>
+                <div class="card">
+                    <h3>Responsive</h3>
+                    <p>Optimiert für alle Bildschirmgrößen.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Kontakt</h2>
+            <form>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="E-Mail" required>
+                <textarea placeholder="Nachricht" rows="5" required></textarea>
+                <button type="submit" class="btn">Absenden</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Mein erstes Projekt</p>
+    </footer>
+</body>
+</html>
