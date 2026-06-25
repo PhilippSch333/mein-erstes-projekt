@@ -31,30 +31,46 @@ from build123d import (
 )
 
 # ----------------------------- parameters (mm) -----------------------------
-W = 46.0              # overall width (sweep length along Y)
+W = 48.0              # overall width (sweep length along Y)
 THICKNESS = 4.0       # ribbon thickness
 EDGE_ROUND = 1.5      # side-edge fillet radius (soft "leather" edges)
 
 GROOVE = True         # central longitudinal seam on the outer surface
-GROOVE_W = 2.2        # seam width (along Y)
-GROOVE_DEPTH = 0.45   # how deep the seam bites into the surface
+GROOVE_W = 3.2        # seam width (along Y)
+GROOVE_DEPTH = 0.7    # how deep the seam bites into the surface
+
+TONGUE = False        # central narrower tongue reaching down into the mouth
+TONGUE_W = 24.0       # tongue width (along Y), narrower than the hood
+TONGUE_THICK = 3.6    # tongue thickness
 
 # Side-profile centerline control points (X = depth, Z = up).
-# Flat base on the ground, then a big round loop curling forward, lip tucking in.
+# Flat tail on the ground, then an OPEN hood curling forward, the lip reaching
+# forward-down as a tongue over the base (a clip/holder mouth that opens forward).
 t = THICKNESS
 CTRL = [
-    (78, t / 2),  # front tip of the flat base (on the ground)
-    (52, t / 2),  # base, front third
-    (30, t / 2),  # base, under the loop's front
-    (8,  t / 2),  # base, back edge
-    (3,  12),     # back wall rising
-    (2,  28),     # back of the loop
-    (10, 42),     # top-back
-    (28, 46),     # crest (round top)
-    (46, 40),     # top-front, rolling down
-    (54, 26),     # front of the loop coming down
-    (52, 14),     # lip curling back in
-    (42, 9),      # lip tip (hovers above the base)
+    (82, t / 2),  # front tip of the flat tail (on the ground)
+    (60, t / 2),  # tail
+    (40, t / 2),  # base, under the roll's front
+    (22, t / 2),  # base, back
+    (9,  3),      # turning up at the back
+    (4,  16),     # back wall rising
+    (5,  30),     # back wall, upper
+    (13, 41),     # roll top-back
+    (29, 45),     # roll crest
+    (45, 41),     # roll rolling forward
+    (54, 31),     # front shoulder of the roll
+    (58, 19),     # leading edge coming down at the front
+    (56, 10),     # leading edge closing the front face
+    (49, 6),      # lip tip (nearly meets the base — front is closed)
+]
+
+# Central tongue centerline (X, Z): starts on the hood lip, ramps down-forward to
+# the base — gives the central wedge seen in the front/top/iso views.
+TONGUE_CTRL = [
+    (52, 26),     # joins the roll's front lip (overlap so it unions into one solid)
+    (50, 16),     # hangs down through the mouth
+    (49, 9),
+    (49, 5),      # tongue tip, meeting the base in the centre
 ]
 
 
@@ -129,6 +145,15 @@ def build():
             add(ribbon_face(centerline, THICKNESS / 2))
         extrude(amount=W / 2, both=True)
     solid = part.part
+
+    # central tongue: a narrower ribbon, unioned into the hood at the lip
+    if TONGUE:
+        tongue_cl = catmull_rom(TONGUE_CTRL)
+        with BuildPart() as tpart:
+            with BuildSketch(Plane.XZ):
+                add(ribbon_face(tongue_cl, TONGUE_THICK / 2))
+            extrude(amount=TONGUE_W / 2, both=True)
+        solid = solid + tpart.part
 
     # soft rounded side edges; fall back to a smaller radius if OCCT refuses
     final, used_r = solid, 0.0

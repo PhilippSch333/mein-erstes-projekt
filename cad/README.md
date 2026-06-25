@@ -52,20 +52,20 @@ Beispiel-Ausgabe:
 ```
 wrote .../curl_stand.stl
   edge fillet : 1.5 mm
-  bbox X,Y,Z  : (78.5, 46.0, 48.8) mm
-  material    : 34.8 cm^3
-  watertight  : True  (euler=2, faces=89700)
+  bbox X,Y,Z  : (80.4, 48.0, 47.3) mm
+  material    : 36.1 cm^3
+  watertight  : True  (euler=2, faces=87656)
 ```
 
 ## Parameter (oben in `curl_stand.py`)
 
 | Variable        | Bedeutung                                  | Default |
 |-----------------|--------------------------------------------|---------|
-| `W`             | Breite (Extrusion entlang Y)               | 46 mm   |
+| `W`             | Breite (Extrusion entlang Y)               | 48 mm   |
 | `THICKNESS`     | Banddicke                                  | 4 mm    |
 | `EDGE_ROUND`    | Verrundungsradius der Seitenkanten         | 1.5 mm  |
 | `GROOVE`        | mittige Längsnaht an/aus                    | True    |
-| `GROOVE_W/DEPTH`| Breite / Tiefe der Naht                    | 2.2 / 0.45 mm |
+| `GROOVE_W/DEPTH`| Breite / Tiefe der Naht                    | 3.2 / 0.7 mm |
 | `CTRL`          | Kontrollpunkte des Seitenprofils (X,Z)     | —       |
 
 Form ändern = `CTRL`-Punkte verschieben und neu rendern. Maße ändern = `W` /
